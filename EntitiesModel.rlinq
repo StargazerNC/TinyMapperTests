@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DomainModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" name="EntitiesModel" namespace="TinyMapperTests" showPropertiesCompartment="true" xmlns="http://www.telerik.com/ORM">
+  <orm:orm name="EntitiesModel" backend="mssql" xmlns:orm="http://tempuri.org/ORM">
+    <orm:namespace name="TinyMapperTests" default="true">
+      <orm:class name="Person" uniqueId="7d4e1b77-59aa-4996-889d-a3116bb4f9f4">
+        <orm:table name="Person" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:field name="_id" property="Id" uniqueId="4a029c30-80eb-4d1e-a15e-e11974816c4c" type="System.Int32">
+          <orm:column name="Id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_name" property="Name" uniqueId="0ee7da9a-3790-40c1-8245-0e1dd4716b29" type="System.String">
+          <orm:column name="name" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthAnsiStringConverter" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_typeID" property="TypeID" uniqueId="9210a2bb-533c-44fd-a39f-cc3d1fa9a3f3" type="System.Int32">
+          <orm:column name="TypeID" sql-type="int" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_personType" property="PersonType" behavior="readwrite" uniqueId="49d05297-8bbd-4559-800c-bced3eefb544" type="TinyMapperTests.PersonType">
+          <orm:reference uniqueId="8455fdfd-9abe-45c9-959d-7c943152e1d6" association-name="PersonHasPersonType">
+            <orm:sharedfield name="_typeID" target-class="TinyMapperTests.PersonType" target-field="_id" />
+          </orm:reference>
+        </orm:field>
+        <orm:field name="_contacts" property="Contacts" behavior="readwrite" uniqueId="c8966392-60f3-427d-a3e4-e59145722af7" type="TinyMapperTests.Contact">
+          <orm:collection element-class="TinyMapperTests.Contact" inverse-field="_person" order-by="" uniqueId="af97ae08-b9d2-4253-986f-93f7e70e1696" />
+        </orm:field>
+        <orm:index name="idx_Person_TypeID">
+          <orm:columnMapping>
+            <orm:column name="TypeID" sql-type="int" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+      <orm:class name="Contact" uniqueId="0b25b665-5e99-4ce0-918b-64545828dfac">
+        <orm:table name="contact" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:field name="_id" property="Id" uniqueId="bfca13f9-54fe-4d86-9841-a84072b145eb" type="System.Int32">
+          <orm:column name="id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_address" property="Address" uniqueId="88b3c6f8-290a-4b2c-9cdb-e2f8eddfb917" type="System.String">
+          <orm:column name="address" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthAnsiStringConverter" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_phone" property="Phone" uniqueId="485562fd-02be-4b6b-aa57-97f06af72fbd" type="System.String">
+          <orm:column name="phone" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthAnsiStringConverter" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_typeID" property="TypeID" uniqueId="0fc3816a-94de-49b5-ae04-0dd21fca799a" type="System.Int32">
+          <orm:column name="type_i_d" sql-type="int" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_personID" property="PersonID" uniqueId="8870f1c8-8fa1-4353-9f3d-0ac6d3149006" type="System.Int32">
+          <orm:column name="PersonID" sql-type="int" nullable="false" length="0" scale="0" ado-type="" />
+        </orm:field>
+        <orm:field name="_contactType" property="ContactType" behavior="readwrite" uniqueId="803e4e07-2333-4934-ae21-06e7e1f07283" type="TinyMapperTests.ContactType">
+          <orm:reference uniqueId="0d045813-e002-43ae-a4f3-bbe07c21b800" association-name="ContactHasContactType">
+            <orm:sharedfield name="_typeID" target-class="TinyMapperTests.ContactType" target-field="_id" />
+          </orm:reference>
+        </orm:field>
+        <orm:field name="_person" property="Person" behavior="readwrite" uniqueId="3ae65df0-a497-4de0-a5a9-ba6c41b75f4b" type="TinyMapperTests.Person">
+          <orm:reference uniqueId="af97ae08-b9d2-4253-986f-93f7e70e1696" association-name="ContactHasPerson">
+            <orm:sharedfield name="_personID" target-class="TinyMapperTests.Person" target-field="_id" />
+          </orm:reference>
+        </orm:field>
+      </orm:class>
+      <orm:class name="ContactType" use-default-mapping="true" uniqueId="7741515e-0bc0-4a1d-917a-dacd85792fa8">
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:field name="_id" property="Id" uniqueId="3dc44616-21c3-47e5-84c0-438af5d1ede1" type="System.Int32">
+          <orm:column name="id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_description" property="Description" uniqueId="7d69aeef-df44-4a5f-9fa9-e6ec9ec10e64" type="System.String">
+          <orm:column name="description" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthAnsiStringConverter" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_contacts" property="Contacts" behavior="readwrite" uniqueId="06a390cb-f08e-4244-aa25-73432d0dd545" type="TinyMapperTests.Contact">
+          <orm:collection element-class="TinyMapperTests.Contact" inverse-field="_contactType" order-by="" uniqueId="0d045813-e002-43ae-a4f3-bbe07c21b800" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="PersonType" use-default-mapping="true" uniqueId="22c4aea0-530b-436f-9391-a678541137e3">
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:field name="_id" property="Id" uniqueId="771bc281-f8e4-476b-b7a6-c4c6c3f4b23a" type="System.Int32">
+          <orm:column name="id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_description" property="Description" uniqueId="6ce8a9aa-539f-4434-bca2-1652e9decb61" type="System.String">
+          <orm:column name="description" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthAnsiStringConverter" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_people" property="People" behavior="readwrite" uniqueId="41cf2ea3-341d-4acd-a20f-ab0a3b8b7a58" type="TinyMapperTests.Person">
+          <orm:collection element-class="TinyMapperTests.Person" inverse-field="_personType" order-by="" uniqueId="8455fdfd-9abe-45c9-959d-7c943152e1d6" />
+        </orm:field>
+      </orm:class>
+    </orm:namespace>
+    <orm:schema schema="">
+      <orm:table name="Person">
+        <orm:column name="Id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="name" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthAnsiStringConverter" ado-type="StringVariableLength" />
+        <orm:column name="TypeID" sql-type="int" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:index name="idx_Person_TypeID">
+          <orm:columnMapping>
+            <orm:column name="TypeID" sql-type="int" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="contact">
+        <orm:column name="id" sql-type="int" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="address" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthAnsiStringConverter" ado-type="StringVariableLength" />
+        <orm:column name="phone" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthAnsiStringConverter" ado-type="StringVariableLength" />
+        <orm:column name="type_i_d" sql-type="int" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="PersonID" sql-type="int" nullable="false" length="0" scale="0" ado-type="" />
+      </orm:table>
+    </orm:schema>
+    <orm:relational-naming-settings>
+      <orm:source-strategy>Property</orm:source-strategy>
+    </orm:relational-naming-settings>
+  </orm:orm>
+  <ModelSettings xmlns="">
+    <AppConfigConnectionPropertyName>EntitiesConnection</AppConfigConnectionPropertyName>
+    <AppConfigConnectionString>data source=(LocalDB)\v11.0;attachdbfilename="C:\Users\Nuno\OneDrive\Test Applications\TinyMapperTests\Site\App_Data\Entities.mdf";integrated security=True</AppConfigConnectionString>
+    <NamingSettings>
+      <ClassRules>
+        <CaseMode>PascalCase</CaseMode>
+        <PluralizationMode>Singularize</PluralizationMode>
+      </ClassRules>
+      <FieldRules>
+        <AddPrefix>_</AddPrefix>
+        <CaseMode>CamelCase</CaseMode>
+      </FieldRules>
+      <PropertyRules>
+        <CaseMode>PascalCase</CaseMode>
+      </PropertyRules>
+      <NavigationPropertyRules />
+    </NamingSettings>
+    <CodeGenerationSettings>
+      <ImplementINotifyPropertyChanging>true</ImplementINotifyPropertyChanging>
+      <ImplementINotifyPropertyChanged>true</ImplementINotifyPropertyChanged>
+      <ImplementIDataErrorInfo>true</ImplementIDataErrorInfo>
+      <GenerateDataAnnotationAttributes>true</GenerateDataAnnotationAttributes>
+      <ImplementISerializable>true</ImplementISerializable>
+      <OutputProjectName>TinyMapperTests</OutputProjectName>
+      <OutputProjectFolder>Classes\</OutputProjectFolder>
+      <OutputPath>Classes\</OutputPath>
+      <MappingDefinitionType>Xml</MappingDefinitionType>
+    </CodeGenerationSettings>
+    <SchemaUpdateSettings>
+      <ExecuteScript>true</ExecuteScript>
+      <DeploymentProject>TinyMapperTests</DeploymentProject>
+      <UpdateDatabaseOperation>Migrate</UpdateDatabaseOperation>
+    </SchemaUpdateSettings>
+    <BackendConfigurationSettings>
+      <BackendConfiguration>
+        <Backend>MsSql</Backend>
+        <ProviderName>System.Data.SqlClient</ProviderName>
+        <Logging>
+          <MetricStoreSnapshotInterval>0</MetricStoreSnapshotInterval>
+        </Logging>
+      </BackendConfiguration>
+    </BackendConfigurationSettings>
+  </ModelSettings>
+  <Types>
+    <DomainClass Id="7d4e1b77-59aa-4996-889d-a3116bb4f9f4" name="Person" namespace="TinyMapperTests" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="4a029c30-80eb-4d1e-a15e-e11974816c4c" name="Id" type="System.Int32" label="Id : System.Int32" identity="true" fieldName="_id" />
+      <Property Id="0ee7da9a-3790-40c1-8245-0e1dd4716b29" name="Name" label="Name : String" fieldName="_name" />
+      <Property Id="9210a2bb-533c-44fd-a39f-cc3d1fa9a3f3" name="TypeID" type="Int32" label="TypeID : Int32" fieldName="_typeID" />
+      <AssociationTargets>
+        <Association Id="8455fdfd-9abe-45c9-959d-7c943152e1d6" SourceMultiplicity="ZeroOne" name="PersonHasPersonType">
+          <DomainClassMoniker name="/EntitiesModel/PersonType" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="774ef87a-a88f-436e-9dcc-8a827ee229aa">
+              <NavigationalPropertyMoniker name="/EntitiesModel/PersonType/People" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="3c5869c9-f61c-40e3-98af-abe3e493a25e">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Person/PersonType" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="7aa03b7f-41af-47c2-bc0e-0bec37b78d9e">
+          <NavigationalProperty Id="49d05297-8bbd-4559-800c-bced3eefb544" name="PersonType" type="PersonType" label="PersonType : PersonType" nullable="true" kind="Persistent" fieldName="_personType" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="68a49ae8-2a12-4c37-89bb-6bc10349db5c">
+          <NavigationalProperty Id="c8966392-60f3-427d-a3e4-e59145722af7" name="Contacts" type="IList&lt;Contact&gt;" label="Contacts : IList&lt;Contact&gt;" nullable="true" kind="Persistent" fieldName="_contacts" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="0b25b665-5e99-4ce0-918b-64545828dfac" name="Contact" namespace="TinyMapperTests" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="bfca13f9-54fe-4d86-9841-a84072b145eb" name="Id" type="System.Int32" label="Id : System.Int32" identity="true" fieldName="_id" />
+      <Property Id="88b3c6f8-290a-4b2c-9cdb-e2f8eddfb917" name="Address" label="Address : String" fieldName="_address" />
+      <Property Id="485562fd-02be-4b6b-aa57-97f06af72fbd" name="Phone" label="Phone : String" fieldName="_phone" />
+      <Property Id="0fc3816a-94de-49b5-ae04-0dd21fca799a" name="TypeID" type="Int32" label="TypeID : Int32" fieldName="_typeID" />
+      <Property Id="8870f1c8-8fa1-4353-9f3d-0ac6d3149006" name="PersonID" type="Int32" label="PersonID : Int32" fieldName="_personID" />
+      <AssociationTargets>
+        <Association Id="0d045813-e002-43ae-a4f3-bbe07c21b800" SourceMultiplicity="ZeroOne" name="ContactHasContactType">
+          <DomainClassMoniker name="/EntitiesModel/ContactType" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="09a23057-cb83-4f01-88fe-e4558c8fc676">
+              <NavigationalPropertyMoniker name="/EntitiesModel/ContactType/Contacts" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="4f277455-56ea-41b1-bca4-ae01ba408b6f">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Contact/ContactType" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="af97ae08-b9d2-4253-986f-93f7e70e1696" SourceMultiplicity="ZeroOne" name="ContactHasPerson">
+          <DomainClassMoniker name="/EntitiesModel/Person" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="641aa424-2449-462f-955c-7784ce0a4dbb">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Person/Contacts" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="05f549f3-c680-4b55-a480-d77b43917ac7">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Contact/Person" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="62a71ea8-8e7a-4162-b51a-ba0ab61e6a61">
+          <NavigationalProperty Id="803e4e07-2333-4934-ae21-06e7e1f07283" name="ContactType" type="ContactType" label="ContactType : ContactType" nullable="true" kind="Persistent" fieldName="_contactType" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="b9d040d7-843e-4f21-b431-116b04faf7b9">
+          <NavigationalProperty Id="3ae65df0-a497-4de0-a5a9-ba6c41b75f4b" name="Person" type="Person" label="Person : Person" nullable="true" kind="Persistent" fieldName="_person" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="7741515e-0bc0-4a1d-917a-dacd85792fa8" name="ContactType" namespace="TinyMapperTests" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="3dc44616-21c3-47e5-84c0-438af5d1ede1" name="Id" type="System.Int32" label="Id : System.Int32" identity="true" fieldName="_id" />
+      <Property Id="7d69aeef-df44-4a5f-9fa9-e6ec9ec10e64" name="Description" label="Description : String" fieldName="_description" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="5353abe3-fb86-40fe-b212-d62cc59c54b5">
+          <NavigationalProperty Id="06a390cb-f08e-4244-aa25-73432d0dd545" name="Contacts" type="IList&lt;Contact&gt;" label="Contacts : IList&lt;Contact&gt;" nullable="true" kind="Persistent" fieldName="_contacts" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="22c4aea0-530b-436f-9391-a678541137e3" name="PersonType" namespace="TinyMapperTests" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="771bc281-f8e4-476b-b7a6-c4c6c3f4b23a" name="Id" type="System.Int32" label="Id : System.Int32" identity="true" fieldName="_id" />
+      <Property Id="6ce8a9aa-539f-4434-bca2-1652e9decb61" name="Description" label="Description : String" fieldName="_description" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="45832e2a-6954-4903-bf6e-972fe2dafc18">
+          <NavigationalProperty Id="41cf2ea3-341d-4acd-a20f-ab0a3b8b7a58" name="People" type="IList&lt;Person&gt;" label="People : IList&lt;Person&gt;" nullable="true" kind="Persistent" fieldName="_people" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+  </Types>
+  <domainContext>
+    <domainModelHasDomainContext Id="01515bed-a5c9-4d28-b290-bf7a17d6c7a2">
+      <domainContainer name="EntitiesModel" namespace="TinyMapperTests" showPropertiesCompartment="true">
+        <entitySetProperty name="People" namespace="TinyMapperTests" type="Person" label="People : IQueryable&lt;TinyMapperTests.Person&gt;" />
+        <entitySetProperty name="Contacts" namespace="TinyMapperTests" type="Contact" label="Contacts : IQueryable&lt;TinyMapperTests.Contact&gt;" />
+        <entitySetProperty name="ContactTypes" namespace="TinyMapperTests" type="ContactType" label="ContactTypes : IQueryable&lt;TinyMapperTests.ContactType&gt;" />
+        <entitySetProperty name="PersonTypes" namespace="TinyMapperTests" type="PersonType" label="PersonTypes : IQueryable&lt;TinyMapperTests.PersonType&gt;" />
+      </domainContainer>
+    </domainModelHasDomainContext>
+  </domainContext>
+</DomainModel>
